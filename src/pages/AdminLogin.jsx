@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Lock, ArrowRight } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const AdminLogin = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AdminLogin = () => {
 
         try {
             // Test credentials against a secured endpoint
-            const response = await fetch('http://localhost:8080/api/admin/colleges', {
+            const response = await fetch(`${API_BASE_URL}/api/admin/colleges`, {
                 method: 'GET',
                 headers: {
                     'Authorization': authHeader,

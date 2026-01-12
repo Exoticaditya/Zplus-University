@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Video, FileText, Filter, Search, Download } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const Courses = () => {
     const [resources, setResources] = useState([]);
@@ -13,7 +14,7 @@ const Courses = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/public/resources')
+        fetch(`${API_BASE_URL}/api/public/resources`)
             .then(res => res.json())
             .then(data => {
                 setResources(data);

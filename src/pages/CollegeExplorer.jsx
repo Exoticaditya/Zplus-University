@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, DollarSign, Briefcase, Filter, ArrowRight } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const CollegeExplorer = () => {
     const [colleges, setColleges] = useState([]);
@@ -17,7 +18,7 @@ const CollegeExplorer = () => {
 
     const fetchColleges = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/api/public/colleges';
+        let url = `${API_BASE_URL}/api/public/colleges`;
 
         // Use search endpoint if any filter is active
         if (location || maxFee || minPackage) {
@@ -25,7 +26,7 @@ const CollegeExplorer = () => {
             if (location) params.append('location', location);
             if (maxFee) params.append('maxFee', maxFee);
             if (minPackage) params.append('minPackage', minPackage);
-            url = `http://localhost:8080/api/public/colleges/search?${params.toString()}`;
+            url = `${API_BASE_URL}/api/public/colleges/search?${params.toString()}`;
         }
 
         fetch(url)

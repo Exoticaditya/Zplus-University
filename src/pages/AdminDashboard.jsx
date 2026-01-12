@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Trash2, Edit2, BookOpen, Building2 } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AdminDashboard = () => {
     const fetchPendingTeachers = async () => {
         const authHeader = localStorage.getItem('authHeader');
         try {
-            const res = await fetch('http://localhost:8080/api/admin/users/pending-teachers', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/users/pending-teachers`, {
                 headers: { 'Authorization': authHeader || '' }
             });
             if (res.ok) setPendingTeachers(await res.json());
@@ -37,7 +38,7 @@ const AdminDashboard = () => {
     const handleApproveTeacher = async (id) => {
         const authHeader = localStorage.getItem('authHeader');
         try {
-            await fetch(`http://localhost:8080/api/admin/users/${id}/approve`, {
+            await fetch(`${API_BASE_URL}/api/admin/users/${id}/approve`, {
                 method: 'PUT',
                 headers: { 'Authorization': authHeader || '' }
             });
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
     const fetchColleges = async () => {
         const authHeader = localStorage.getItem('authHeader');
         try {
-            const res = await fetch('http://localhost:8080/api/admin/colleges', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/colleges`, {
                 headers: { 'Authorization': authHeader || '' }
             });
             if (res.status === 401 || res.status === 403) {
@@ -68,7 +69,7 @@ const AdminDashboard = () => {
     const fetchResources = async () => {
         const authHeader = localStorage.getItem('authHeader');
         try {
-            const res = await fetch('http://localhost:8080/api/admin/resources', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/resources`, {
                 headers: { 'Authorization': authHeader || '' }
             });
             if (res.ok) setResources(await res.json());
@@ -81,7 +82,7 @@ const AdminDashboard = () => {
         const authHeader = localStorage.getItem('authHeader');
 
         try {
-            const res = await fetch('http://localhost:8080/api/admin/colleges', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/colleges`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,7 +127,7 @@ const AdminDashboard = () => {
                 formData.append('file', newResource.file);
             }
 
-            const res = await fetch('http://localhost:8080/api/admin/resources', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/resources`, {
                 method: 'POST',
                 headers: {
                     'Authorization': authHeader || ''
@@ -158,7 +159,7 @@ const AdminDashboard = () => {
     const handleDeleteCollege = async (id) => {
         if (!window.confirm("Are you sure?")) return;
         const authHeader = localStorage.getItem('authHeader');
-        await fetch(`http://localhost:8080/api/admin/colleges/${id}`, {
+        await fetch(`${API_BASE_URL}/api/admin/colleges/${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': authHeader || '' }
         });
@@ -168,7 +169,7 @@ const AdminDashboard = () => {
     const handleDeleteResource = async (id) => {
         if (!window.confirm("Are you sure?")) return;
         const authHeader = localStorage.getItem('authHeader');
-        await fetch(`http://localhost:8080/api/admin/resources/${id}`, {
+        await fetch(`${API_BASE_URL}/api/admin/resources/${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': authHeader || '' }
         });

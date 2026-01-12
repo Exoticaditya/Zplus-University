@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GraduationCap, ArrowRight } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const TeacherLogin = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const TeacherLogin = () => {
 
         try {
             // Verify by fetching User Details
-            const response = await fetch('http://localhost:8080/api/auth/me', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
                 method: 'GET',
                 headers: { 'Authorization': authHeader }
             });

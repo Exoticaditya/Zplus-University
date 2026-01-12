@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, ArrowRight, Building2, Star } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const Admissions = () => {
     const [colleges, setColleges] = useState([]);
@@ -15,7 +16,7 @@ const Admissions = () => {
     });
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/public/colleges')
+        fetch(`${API_BASE_URL}/api/public/colleges`)
             .then(res => res.json())
             .then(data => {
                 setColleges(data);

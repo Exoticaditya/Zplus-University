@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MapPin, DollarSign, Briefcase, CheckCircle, ArrowLeft, Globe, Phone, Mail } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const CollegeDetails = () => {
     const { id } = useParams();
@@ -8,7 +9,7 @@ const CollegeDetails = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/public/colleges/${id}`)
+        fetch(`${API_BASE_URL}/api/public/colleges/${id}`)
             .then(res => res.json())
             .then(data => {
                 setCollege(data);

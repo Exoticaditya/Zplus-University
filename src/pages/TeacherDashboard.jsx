@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Trash2, BookOpen, LogOut } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const TeacherDashboard = () => {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const TeacherDashboard = () => {
     const fetchResources = async () => {
         const authHeader = localStorage.getItem('authHeader');
         try {
-            const res = await fetch('http://localhost:8080/api/admin/resources', { // Start with admin endpoint, verify permissions later
+            const res = await fetch(`${API_BASE_URL}/api/admin/resources`, { // Start with admin endpoint, verify permissions later
                 headers: { 'Authorization': authHeader || '' }
             });
             if (res.status === 401 || res.status === 403) {
@@ -51,7 +52,7 @@ const TeacherDashboard = () => {
                 formData.append('file', newResource.file);
             }
 
-            const res = await fetch('http://localhost:8080/api/admin/resources', { // Reuse Admin endpoint if allowed, or create /api/teacher/resources
+            const res = await fetch(`${API_BASE_URL}/api/admin/resources`, { // Reuse Admin endpoint if allowed, or create /api/teacher/resources
                 method: 'POST',
                 headers: {
                     'Authorization': authHeader || ''

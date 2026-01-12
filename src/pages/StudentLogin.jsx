@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const StudentLogin = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const StudentLogin = () => {
         const authHeader = 'Basic ' + btoa(`${credentials.username}:${credentials.password}`);
 
         try {
-            const response = await fetch('http://localhost:8080/api/auth/me', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
                 method: 'GET',
                 headers: { 'Authorization': authHeader }
             });
