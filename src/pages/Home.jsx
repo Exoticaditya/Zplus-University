@@ -1,8 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Users, Trophy, Building2, MapPin } from 'lucide-react';
+import { ArrowRight, BookOpen, Users, Trophy, Building2, MapPin, Star, Quote } from 'lucide-react';
+import BackToTop from '../components/BackToTop';
 
 const Home = () => {
+    const [counters, setCounters] = useState({ courses: 0, students: 0, years: 0 });
+    const [hasAnimated, setHasAnimated] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && !hasAnimated) {
+                    setHasAnimated(true);
+                    animateValue('courses', 0, 50, 1500);
+                    animateValue('students', 0, 12000, 2000);
+                    animateValue('years', 0, 25, 1500);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        const statsElement = document.getElementById('stats-section');
+        if (statsElement) {
+            observer.observe(statsElement);
+        }
+
+        return () => {
+            if (statsElement) {
+                observer.unobserve(statsElement);
+            }
+        };
+    }, [hasAnimated]);
+
+    const animateValue = (key, start, end, duration) => {
+        const range = end - start;
+        const increment = range / (duration / 16);
+        let current = start;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= end) {
+                current = end;
+                clearInterval(timer);
+            }
+            setCounters(prev => ({ ...prev, [key]: Math.floor(current) }));
+        }, 16);
+    };
+
     return (
         <div className="min-h-screen font-sans">
             {/* Hero Section */}
@@ -39,15 +83,15 @@ const Home = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 bg-blue-900 text-white">
+            <section id="stats-section" className="py-12 bg-blue-900 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div className="p-4">
-                            <h3 className="text-4xl font-bold mb-2">50+</h3>
+                            <h3 className="text-4xl font-bold mb-2">{counters.courses}+</h3>
                             <p className="text-blue-200">Courses Offered</p>
                         </div>
                         <div className="p-4">
-                            <h3 className="text-4xl font-bold mb-2">12k+</h3>
+                            <h3 className="text-4xl font-bold mb-2">{counters.students.toLocaleString()}+</h3>
                             <p className="text-blue-200">Students Enrolled</p>
                         </div>
                         <div className="p-4">
@@ -55,7 +99,7 @@ const Home = () => {
                             <p className="text-blue-200">Placement Support</p>
                         </div>
                         <div className="p-4">
-                            <h3 className="text-4xl font-bold mb-2">25+</h3>
+                            <h3 className="text-4xl font-bold mb-2">{counters.years}+</h3>
                             <p className="text-blue-200">Years of Excellence</p>
                         </div>
                     </div>
@@ -108,6 +152,85 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Testimonials Section */}
+            <section className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Students Say</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Real experiences from students who transformed their careers with us.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="bg-gray-50 p-8 rounded-2xl relative hover:shadow-lg transition-shadow duration-300">
+                            <Quote className="absolute top-6 right-6 h-8 w-8 text-blue-100" />
+                            <div className="flex items-center gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                                ))}
+                            </div>
+                            <p className="text-gray-700 mb-6 leading-relaxed">
+                                "Zplus University gave me the perfect foundation for my career. The faculty is incredibly supportive and the placement cell helped me land my dream job."
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold">
+                                    PS
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-gray-900">Priya Sharma</h4>
+                                    <p className="text-sm text-gray-500">B.Tech CSE, 2023</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-8 rounded-2xl relative hover:shadow-lg transition-shadow duration-300">
+                            <Quote className="absolute top-6 right-6 h-8 w-8 text-blue-100" />
+                            <div className="flex items-center gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                                ))}
+                            </div>
+                            <p className="text-gray-700 mb-6 leading-relaxed">
+                                "The hands-on practical approach and industry connections made all the difference. I'm now working at a top MNC, all thanks to Zplus!"
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-bold">
+                                    RK
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-gray-900">Rahul Kumar</h4>
+                                    <p className="text-sm text-gray-500">MBA, 2022</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-8 rounded-2xl relative hover:shadow-lg transition-shadow duration-300">
+                            <Quote className="absolute top-6 right-6 h-8 w-8 text-blue-100" />
+                            <div className="flex items-center gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                                ))}
+                            </div>
+                            <p className="text-gray-700 mb-6 leading-relaxed">
+                                "Best decision of my life! The campus, faculty, and learning environment are world-class. Highly recommend to anyone looking for quality education."
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center text-white font-bold">
+                                    AP
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-gray-900">Anjali Patel</h4>
+                                    <p className="text-sm text-gray-500">BBA, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <BackToTop />
 
             {/* Footer */}
             <footer className="bg-gray-900 text-white py-12">
