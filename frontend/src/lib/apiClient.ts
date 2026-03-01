@@ -32,3 +32,38 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
     }
     return data;
 }
+
+// ── Axios-compatible default export ────────────────────────────────────────
+// Allows both:
+//   import { fetchApi } from '@/lib/apiClient'          (named, existing pattern)
+//   import apiClient from '@/lib/apiClient'             (default, axios-style)
+const apiClient = {
+    get: (endpoint: string, options?: RequestInit) =>
+        fetchApi(endpoint, { method: 'GET', ...options }),
+
+    post: (endpoint: string, body: unknown, options?: RequestInit) =>
+        fetchApi(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            ...options,
+        }),
+
+    put: (endpoint: string, body: unknown, options?: RequestInit) =>
+        fetchApi(endpoint, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            ...options,
+        }),
+
+    patch: (endpoint: string, body: unknown, options?: RequestInit) =>
+        fetchApi(endpoint, {
+            method: 'PATCH',
+            body: JSON.stringify(body),
+            ...options,
+        }),
+
+    delete: (endpoint: string, options?: RequestInit) =>
+        fetchApi(endpoint, { method: 'DELETE', ...options }),
+};
+
+export default apiClient;

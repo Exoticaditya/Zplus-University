@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import apiClient from '@/lib/apiClient';
+import { fetchApi } from '@/lib/apiClient';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface CourseEntry {
@@ -146,18 +146,19 @@ function Section({ title, icon, iconBg, children }: { title: string; icon: strin
 }
 
 // ── Main Component ──────────────────────────────────────────────────────────
-export default function CollegeDetailClient({ id }: { id: string }) {
-    const [college, setCollege] = useState<College | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+export default function CollegeDetailClient({ id, initialData }: { id: string; initialData?: College | null }) {
+    const [college, setCollege] = useState<College | null>(initialData ?? null);
+    const [isLoading, setIsLoading] = useState(!initialData);
     const [activeTab, setActiveTab] = useState<TabId>('overview');
     const [lightbox, setLightbox] = useState<string | null>(null);
     const [isShortlisted, setIsShortlisted] = useState(false);
 
     useEffect(() => {
+        if (initialData) return; // already hydrated from server
         async function fetchCollege() {
             try {
-                const res = await apiClient.get(`/colleges/${id}`);
-                setCollege(res.data?.data || res.data);
+                const res = await fetchApi(`/colleges/${id}`);
+                setCollege(res?.data || res);
             } catch (err) {
                 console.error('Failed to fetch college:', err);
             } finally {
@@ -165,7 +166,7 @@ export default function CollegeDetailClient({ id }: { id: string }) {
             }
         }
         fetchCollege();
-    }, [id]);
+    }, [id, initialData]);
 
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem('shortlistedColleges') || '[]');
