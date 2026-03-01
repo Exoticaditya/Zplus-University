@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="collegeTitle">University Details - Zpluse University</title>
+    <link rel="stylesheet" href="css/premium-ultra.css">
+    <link rel="stylesheet" href="css/impressive-features.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="index.html"><i class="fas fa-graduation-cap"></i> Zpluse University</a></h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#colleges" class="nav-link">Colleges</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#courses" class="nav-link">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+            </ul>
+            <div class="nav-auth">
+                <button id="authButton" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <div id="profileDropdown" class="profile-dropdown" style="display: none;">
+                    <div class="profile-icon" id="profileIcon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- College Header -->
+    <section class="college-header">
+        <div class="container">
+            <div class="college-header-content">
+                <div class="college-image">
+                    <img id="collegeImage" src="" alt="College Image">
+                    <div class="image-overlay">
+                        <button class="btn-secondary"><i class="fas fa-camera"></i> View Gallery</button>
+                    </div>
+                </div>
+                <div class="college-info">
+                    <h1 id="collegeName">College Name</h1>
+                    <div class="college-meta">
+                        <span class="location"><i class="fas fa-map-marker-alt"></i> <span id="collegeLocation">Location</span></span>
+                        <span class="rating"><i class="fas fa-star"></i> <span id="collegeRating">4.5</span> (250 reviews)</span>
+                        <span class="established"><i class="fas fa-calendar"></i> Est. <span id="collegeEstablished">Year</span></span>
+                    </div>
+                    <div class="college-actions">
+                        <button class="btn-primary btn-bookmark-main" id="bookmarkBtn"><i class="far fa-bookmark"></i> Save College</button>
+                        <button class="btn-secondary" id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="btn-secondary" id="downloadBrochureBtn"><i class="fas fa-download"></i> Download Brochure</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- College Navigation Tabs -->
+    <section class="college-nav">
+        <div class="container">
+            <ul class="nav-tabs">
+                <li class="tab-item active" data-tab="overview">Overview</li>
+                <li class="tab-item" data-tab="courses">Courses</li>
+                <li class="tab-item" data-tab="fees">Fee Structure</li>
+                <li class="tab-item" data-tab="admissions">Admissions</li>
+                <li class="tab-item" data-tab="facilities">Facilities</li>
+                <li class="tab-item" data-tab="reviews">Reviews</li>
+                <li class="tab-item" data-tab="notes">Notes & Videos</li>
+                <li class="tab-item" data-tab="contact">Contact</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- College Content -->
+    <section class="college-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <!-- Overview Tab -->
+                    <div id="overview" class="tab-content active">
+                        <div class="content-section">
+                            <h3>About the College</h3>
+                            <p id="collegeAbout">College description will be loaded here...</p>
+                        </div>
+                        <div class="content-section">
+                            <h3>Key Highlights</h3>
+                            <div class="highlights-grid" id="collegeHighlights">
+                                <!-- Highlights will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h3>Quick Stats</h3>
+                            <div class="stats-grid" id="collegeStats">
+                                <!-- Stats will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Courses Tab -->
+                    <div id="courses" class="tab-content">
+                        <div class="content-section">
+                            <h3>Courses Offered</h3>
+                            <div class="courses-grid" id="coursesGrid">
+                                <!-- Courses will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fee Structure Tab -->
+                    <div id="fees" class="tab-content">
+                        <div class="content-section">
+                            <h3>Fee Structure</h3>
+                            <div class="fee-table" id="feeStructure">
+                                <!-- Fee structure will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admissions Tab -->
+                    <div id="admissions" class="tab-content">
+                        <div class="content-section">
+                            <h3>Admission Process</h3>
+                            <div id="admissionProcess">
+                                <!-- Admission process will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h3>Eligibility Criteria</h3>
+                            <div id="eligibilityCriteria">
+                                <!-- Eligibility criteria will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facilities Tab -->
+                    <div id="facilities" class="tab-content">
+                        <div class="content-section">
+                            <h3>Campus Facilities</h3>
+                            <div class="facilities-grid" id="facilitiesGrid">
+                                <!-- Facilities will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Tab -->
+                    <div id="reviews" class="tab-content">
+                        <div class="content-section">
+                            <h3>Student Reviews</h3>
+                            <div class="reviews-summary">
+                                <div class="rating-overview">
+                                    <div class="overall-rating">
+                                        <h2 id="overallRating">4.5</h2>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <p>Based on <span id="reviewCount">250</span> reviews</p>
+                                    </div>
+                                    <div class="rating-breakdown" id="ratingBreakdown">
+                                        <!-- Rating breakdown will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews-list" id="reviewsList">
+                                <!-- Reviews will be loaded here -->
+                            </div>
+                            <button class="btn-primary" id="writeReviewBtn">Write a Review</button>
+                        </div>
+                    </div>
+
+                    <!-- Notes & Videos Tab -->
+                    <div id="notes" class="tab-content">
+                        <div class="content-section">
+                            <div class="content-tabs">
+                                <button class="content-tab active" data-content="study-notes">Study Notes</button>
+                                <button class="content-tab" data-content="video-lectures">Video Lectures</button>
+                            </div>
+                            
+                            <!-- Study Notes Section -->
+                            <div id="study-notes" class="content-panel active">
+                                <div class="section-header">
+                                    <h3>Study Materials & Notes</h3>
+                                    <div class="filters">
+                                        <select id="notesSubjectFilter" class="filter-select">
+                                            <option value="">All Subjects</option>
+                                            <option value="Data Structures">Data Structures</option>
+                                            <option value="Algorithms">Algorithms</option>
+                                            <option value="Mathematics">Mathematics</option>
+                                            <option value="Physics">Physics</option>
+                                        </select>
+                                        <select id="notesCourseFilter" class="filter-select">
+                                            <option value="">All Courses</option>
+                                            <option value="B.Tech CSE">B.Tech CSE</option>
+                                            <option value="M.Tech CSE">M.Tech CSE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="notes-grid" id="notesGrid">
+                                    <!-- Sample Notes -->
+                                    <div class="note-item">
+                                        <div class="note-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="note-content">
+                                            <h4>Data Structures Complete Notes</h4>
+                                            <p class="note-meta">
+                                                <span class="subject">Data Structures</span>
+                                                <span class="course">B.Tech CSE</span>
+                                                <span class="date">Uploaded 2 days ago</span>
+                                            </p>
+                                            <p class="note-description">Comprehensive notes covering all data structures including arrays, linked lists, stacks, queues, trees, and graphs.</p>
+                                            <div class="note-stats">
+                                                <span><i class="fas fa-download"></i> 1.2k downloads</span>
+                                                <span><i class="fas fa-star"></i> 4.8 rating</span>
+                                            </div>
+                                        </div>
+                                        <div class="note-actions">
+                                            <button class="btn btn-outline btn-sm preview-btn" data-file="ds-notes.pdf">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </button>
+                                            <button class="btn btn-primary btn-sm download-btn" data-file="ds-notes.pdf">
+                                                <i class="fas fa-download"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="note-item">
+                                        <div class="note-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="note-content">
+                                            <h4>Algorithms and Analysis</h4>
+                                            <p class="note-meta">
+                                                <span class="subject">Algorithms</span>
+                                                <span class="course">B.Tech CSE</span>
+                                                <span class="date">Uploaded 1 week ago</span>
+                                            </p>
+                                            <p class="note-description">Detailed notes on algorithm design, time complexity analysis, sorting algorithms, and dynamic programming.</p>
+                                            <div class="note-stats">
+                                                <span><i class="fas fa-download"></i> 986 downloads</span>
+                                                <span><i class="fas fa-star"></i> 4.6 rating</span>
+                                            </div>
+                                        </div>
+                                        <div class="note-actions">
+                                            <button class="btn btn-outline btn-sm preview-btn" data-file="algorithms-notes.pdf">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </button>
+                                            <button class="btn btn-primary btn-sm download-btn" data-file="algorithms-notes.pdf">
+                                                <i class="fas fa-download"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="note-item">
+                                        <div class="note-icon">
+                                            <i class="fas fa-file-word"></i>
+                                        </div>
+                                        <div class="note-content">
+                                            <h4>Engineering Mathematics Formula Sheet</h4>
+                                            <p class="note-meta">
+                                                <span class="subject">Mathematics</span>
+                                                <span class="course">B.Tech CSE</span>
+                                                <span class="date">Uploaded 3 days ago</span>
+                                            </p>
+                                            <p class="note-description">Quick reference formula sheet for engineering mathematics including calculus, linear algebra, and differential equations.</p>
+                                            <div class="note-stats">
+                                                <span><i class="fas fa-download"></i> 2.1k downloads</span>
+                                                <span><i class="fas fa-star"></i> 4.9 rating</span>
+                                            </div>
+                                        </div>
+                                        <div class="note-actions">
+                                            <button class="btn btn-outline btn-sm preview-btn" data-file="math-formulas.docx">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </button>
+                                            <button class="btn btn-primary btn-sm download-btn" data-file="math-formulas.docx">
+                                                <i class="fas fa-download"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Video Lectures Section -->
+                            <div id="video-lectures" class="content-panel">
+                                <div class="section-header">
+                                    <h3>Video Lectures & Tutorials</h3>
+                                    <div class="filters">
+                                        <select id="videosSubjectFilter" class="filter-select">
+                                            <option value="">All Subjects</option>
+                                            <option value="Machine Learning">Machine Learning</option>
+                                            <option value="Data Structures">Data Structures</option>
+                                            <option value="Computer Networks">Computer Networks</option>
+                                            <option value="Database Systems">Database Systems</option>
+                                        </select>
+                                        <select id="videosCourseFilter" class="filter-select">
+                                            <option value="">All Courses</option>
+                                            <option value="B.Tech CSE">B.Tech CSE</option>
+                                            <option value="M.Tech CSE">M.Tech CSE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="videos-grid" id="videosGrid">
+                                    <!-- Sample Videos -->
+                                    <div class="video-item">
+                                        <div class="video-thumbnail">
+                                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-duration">45:32</div>
+                                            <div class="video-play-overlay">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-content">
+                                            <h4>Introduction to Machine Learning</h4>
+                                            <p class="video-meta">
+                                                <span class="subject">Machine Learning</span>
+                                                <span class="course">M.Tech CSE</span>
+                                                <span class="instructor">Prof. John Smith</span>
+                                            </p>
+                                            <p class="video-description">Comprehensive introduction to machine learning concepts, algorithms, and applications in real-world scenarios.</p>
+                                            <div class="video-stats">
+                                                <span><i class="fas fa-eye"></i> 3.2k views</span>
+                                                <span><i class="fas fa-star"></i> 4.7 rating</span>
+                                                <span><i class="fas fa-clock"></i> 45 mins</span>
+                                            </div>
+                                        </div>
+                                        <div class="video-actions">
+                                            <button class="btn btn-primary btn-sm play-video-btn" data-video="ml-intro.mp4">
+                                                <i class="fas fa-play"></i> Play Video
+                                            </button>
+                                            <button class="btn btn-outline btn-sm bookmark-btn">
+                                                <i class="fas fa-bookmark"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="video-item">
+                                        <div class="video-thumbnail">
+                                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-duration">38:15</div>
+                                            <div class="video-play-overlay">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-content">
+                                            <h4>Binary Trees and BST</h4>
+                                            <p class="video-meta">
+                                                <span class="subject">Data Structures</span>
+                                                <span class="course">B.Tech CSE</span>
+                                                <span class="instructor">Prof. Jane Doe</span>
+                                            </p>
+                                            <p class="video-description">Deep dive into binary trees, binary search trees, tree traversals, and common operations with practical examples.</p>
+                                            <div class="video-stats">
+                                                <span><i class="fas fa-eye"></i> 2.8k views</span>
+                                                <span><i class="fas fa-star"></i> 4.9 rating</span>
+                                                <span><i class="fas fa-clock"></i> 38 mins</span>
+                                            </div>
+                                        </div>
+                                        <div class="video-actions">
+                                            <button class="btn btn-primary btn-sm play-video-btn" data-video="binary-trees.mp4">
+                                                <i class="fas fa-play"></i> Play Video
+                                            </button>
+                                            <button class="btn btn-outline btn-sm bookmark-btn">
+                                                <i class="fas fa-bookmark"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="video-item">
+                                        <div class="video-thumbnail">
+                                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-duration">52:20</div>
+                                            <div class="video-play-overlay">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-content">
+                                            <h4>TCP/IP Protocol Suite</h4>
+                                            <p class="video-meta">
+                                                <span class="subject">Computer Networks</span>
+                                                <span class="course">B.Tech CSE</span>
+                                                <span class="instructor">Prof. Mike Johnson</span>
+                                            </p>
+                                            <p class="video-description">Detailed explanation of TCP/IP protocol suite, network layers, and packet transmission mechanisms.</p>
+                                            <div class="video-stats">
+                                                <span><i class="fas fa-eye"></i> 1.9k views</span>
+                                                <span><i class="fas fa-star"></i> 4.5 rating</span>
+                                                <span><i class="fas fa-clock"></i> 52 mins</span>
+                                            </div>
+                                        </div>
+                                        <div class="video-actions">
+                                            <button class="btn btn-primary btn-sm play-video-btn" data-video="tcp-ip.mp4">
+                                                <i class="fas fa-play"></i> Play Video
+                                            </button>
+                                            <button class="btn btn-outline btn-sm bookmark-btn">
+                                                <i class="fas fa-bookmark"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="upload-section">
+                                <button class="btn btn-primary" id="uploadContentBtn">
+                                    <i class="fas fa-plus"></i> Upload Content
+                                </button>
+                                <p class="upload-note">Share your study materials and help fellow students</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Tab -->
+                    <div id="contact" class="tab-content">
+                        <div class="content-section">
+                            <h3>Contact Information</h3>
+                            <div class="contact-info-grid" id="contactInfo">
+                                <!-- Contact information will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h3>Location</h3>
+                            <div class="map-placeholder">
+                                <i class="fas fa-map"></i>
+                                <p>Interactive map will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-widget">
+                        <h4>Quick Apply</h4>
+                        <form class="quick-apply-form">
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <input type="tel" placeholder="Phone Number" required>
+                            <select required>
+                                <option value="">Select Course</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="medical">Medical</option>
+                                <option value="management">Management</option>
+                            </select>
+                            <button type="submit" class="btn-primary">Apply Now</button>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>Similar Colleges</h4>
+                        <div class="similar-colleges" id="similarColleges">
+                            <!-- Similar colleges will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>Quick Facts</h4>
+                        <div class="quick-facts" id="quickFacts">
+                            <!-- Quick facts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Write Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Write a Review</h3>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label>Overall Rating</label>
+                    <div class="star-rating">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reviewTitle">Review Title</label>
+                    <input type="text" id="reviewTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Your Review</label>
+                    <textarea id="reviewText" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Upload Note Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Upload Study Material</h3>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label for="noteTitle">Title</label>
+                    <input type="text" id="noteTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="noteSubject">Subject</label>
+                    <input type="text" id="noteSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="noteFile">File</label>
+                    <input type="file" id="noteFile" accept=".pdf,.doc,.docx" required>
+                </div>
+                <div class="form-group">
+                    <label for="noteDescription">Description</label>
+                    <textarea id="noteDescription" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/universities-mvp.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/impressive-features.js"></script>
+    <script src="js/university-detail-mvp.js"></script>
+</body>
+</html>

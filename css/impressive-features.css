@@ -1,0 +1,811 @@
+/* ============================================
+   IMPRESSIVE FEATURES - ADDITIONAL STYLES
+   ============================================ */
+
+/* ============================================
+   1. LIVE SEARCH SUGGESTIONS
+   ============================================ */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.search-suggestions.show {
+    max-height: 400px;
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+    background: #f8f9fa;
+}
+
+.suggestion-item i {
+    color: #6366f1;
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+
+.suggestion-content {
+    flex: 1;
+}
+
+.suggestion-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.suggestion-name strong {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.suggestion-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.suggestion-meta i {
+    font-size: 10px;
+    width: auto;
+}
+
+.suggestion-stream {
+    background: #e0e7ff;
+    color: #4f46e5;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.suggestion-item.no-results {
+    justify-content: center;
+    color: #6b7280;
+    cursor: default;
+}
+
+.suggestion-item.no-results:hover {
+    background: transparent;
+}
+
+/* ============================================
+   2. COMPARISON TOOL
+   ============================================ */
+.btn-compare {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #6366f1;
+    color: #6366f1;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-compare:hover {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-compare.active {
+    background: #10b981;
+    border-color: #10b981;
+    color: white;
+}
+
+/* Compare Bar (Fixed Bottom) */
+.compare-bar {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    padding: 16px 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    transition: bottom 0.3s ease;
+}
+
+.compare-bar.show {
+    bottom: 0;
+}
+
+.compare-bar-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.compare-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.compare-count {
+    background: white;
+    color: #6366f1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.compare-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.compare-actions .btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.compare-actions .btn-primary {
+    background: white;
+    color: #6366f1;
+}
+
+.compare-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+}
+
+/* Comparison Modal */
+.comparison-modal .modal-content {
+    max-width: 1200px;
+    width: 95vw;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 16px;
+    text-align: left;
+    border: 1px solid #e5e7eb;
+}
+
+.comparison-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #1f2937;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.comparison-table .sticky-col {
+    position: sticky;
+    left: 0;
+    background: #f9fafb;
+    font-weight: 600;
+    z-index: 5;
+}
+
+.comparison-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.compare-header {
+    text-align: center;
+}
+
+.compare-header img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.compare-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.compare-header p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.feature-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.feature-label i {
+    color: #6366f1;
+    width: 20px;
+}
+
+.action-row {
+    background: #f9fafb !important;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ============================================
+   3. DARK MODE
+   ============================================ */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    cursor: pointer;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: #1a1a2e;
+    color: #e5e5e5;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .navbar {
+    background: rgba(26, 26, 46, 0.95);
+    border-bottom-color: #2d2d44;
+}
+
+body.dark-mode .hero {
+    background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%);
+}
+
+body.dark-mode .college-card {
+    background: #2d2d44;
+    border-color: #3a3a52;
+    color: #e5e5e5;
+}
+
+body.dark-mode .college-card:hover {
+    border-color: #6366f1;
+}
+
+body.dark-mode .btn-primary {
+    background: #6366f1;
+    color: white;
+}
+
+body.dark-mode .btn-secondary {
+    background: #3a3a52;
+    color: #e5e5e5;
+    border-color: #4a4a62;
+}
+
+body.dark-mode .search-field {
+    background: #2d2d44;
+    border-color: #3a3a52;
+    color: #e5e5e5;
+}
+
+body.dark-mode .search-field input {
+    color: #e5e5e5;
+}
+
+body.dark-mode .filter-select {
+    background: #2d2d44;
+    border-color: #3a3a52;
+    color: #e5e5e5;
+}
+
+body.dark-mode .footer {
+    background: #16162a;
+    border-top-color: #2d2d44;
+}
+
+body.dark-mode .search-suggestions {
+    background: #2d2d44;
+    border-color: #3a3a52;
+}
+
+body.dark-mode .suggestion-item {
+    border-bottom-color: #3a3a52;
+}
+
+body.dark-mode .suggestion-item:hover {
+    background: #3a3a52;
+}
+
+body.dark-mode .suggestion-name {
+    color: #e5e5e5;
+}
+
+body.dark-mode .modal-content {
+    background: #2d2d44;
+    color: #e5e5e5;
+}
+
+body.dark-mode .comparison-table th,
+body.dark-mode .comparison-table td {
+    border-color: #3a3a52;
+}
+
+body.dark-mode .comparison-table th,
+body.dark-mode .comparison-table .sticky-col {
+    background: #25253a;
+}
+
+body.dark-mode .comparison-table tbody tr:hover {
+    background: #3a3a52;
+}
+
+/* ============================================
+   4. SKELETON LOADER
+   ============================================ */
+.skeleton {
+    pointer-events: none;
+}
+
+.skeleton-image {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 12px 12px 0 0;
+}
+
+.skeleton-content {
+    padding: 20px;
+}
+
+.skeleton-text {
+    height: 14px;
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.skeleton-title {
+    height: 20px;
+    width: 70%;
+}
+
+.skeleton-subtitle {
+    height: 16px;
+    width: 50%;
+}
+
+.skeleton-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skeleton-button {
+    flex: 1;
+    height: 40px;
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+body.dark-mode .skeleton-image,
+body.dark-mode .skeleton-text,
+body.dark-mode .skeleton-button {
+    background: linear-gradient(
+        90deg,
+        #2d2d44 25%,
+        #3a3a52 50%,
+        #2d2d44 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+/* ============================================
+   5. TOAST NOTIFICATIONS
+   ============================================ */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: white;
+    color: #1f2937;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 9999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    min-width: 250px;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast i {
+    font-size: 18px;
+}
+
+.toast-success {
+    border-left: 4px solid #10b981;
+}
+
+.toast-success i {
+    color: #10b981;
+}
+
+.toast-warning {
+    border-left: 4px solid #f59e0b;
+}
+
+.toast-warning i {
+    color: #f59e0b;
+}
+
+.toast-info {
+    border-left: 4px solid #3b82f6;
+}
+
+.toast-info i {
+    color: #3b82f6;
+}
+
+body.dark-mode .toast {
+    background: #2d2d44;
+    color: #e5e5e5;
+}
+
+/* ============================================
+   6. SOCIAL SHARE MODAL
+   ============================================ */
+.share-modal .modal-content {
+    max-width: 500px;
+}
+
+.share-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    color: #1f2937;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.share-btn.whatsapp {
+    border-color: #25d366;
+    color: #25d366;
+}
+
+.share-btn.whatsapp:hover {
+    background: #25d366;
+    color: white;
+}
+
+.share-btn.facebook {
+    border-color: #1877f2;
+    color: #1877f2;
+}
+
+.share-btn.facebook:hover {
+    background: #1877f2;
+    color: white;
+}
+
+.share-btn.twitter {
+    border-color: #1da1f2;
+    color: #1da1f2;
+}
+
+.share-btn.twitter:hover {
+    background: #1da1f2;
+    color: white;
+}
+
+.share-btn.linkedin {
+    border-color: #0a66c2;
+    color: #0a66c2;
+}
+
+.share-btn.linkedin:hover {
+    background: #0a66c2;
+    color: white;
+}
+
+.share-btn.telegram {
+    border-color: #0088cc;
+    color: #0088cc;
+}
+
+.share-btn.telegram:hover {
+    background: #0088cc;
+    color: white;
+}
+
+.share-btn.copy {
+    border-color: #6366f1;
+    color: #6366f1;
+}
+
+.share-btn.copy:hover {
+    background: #6366f1;
+    color: white;
+}
+
+body.dark-mode .share-btn {
+    background: #2d2d44;
+    color: inherit;
+}
+
+/* ============================================
+   7. BOOKMARK BUTTON
+   ============================================ */
+.quick-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.btn-bookmark {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-bookmark:hover {
+    background: white;
+    color: #6366f1;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-bookmark.active {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-bookmark.active:hover {
+    background: #4f46e5;
+}
+
+body.dark-mode .btn-bookmark {
+    background: rgba(58, 58, 82, 0.95);
+    color: #e5e5e5;
+}
+
+body.dark-mode .btn-bookmark:hover {
+    background: #4a4a62;
+    color: #6366f1;
+}
+
+/* Bookmark button in header actions */
+.btn-bookmark-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-bookmark-main.active {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.btn-bookmark-main.active:hover {
+    background: #059669;
+}
+
+/* ============================================
+   8. ANIMATED STATS
+   ============================================ */
+.stat-item h3 {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-item p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8px;
+}
+
+/* ============================================
+   9. RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .comparison-table-wrapper {
+        overflow-x: scroll;
+    }
+
+    .comparison-table {
+        min-width: 800px;
+    }
+
+    .compare-bar-content {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .compare-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .compare-actions .btn {
+        width: 100%;
+    }
+
+    .share-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .dark-mode-toggle {
+        bottom: 24px;
+        right: 16px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .toast {
+        right: 16px;
+        left: 16px;
+        bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-suggestions {
+        max-height: 300px;
+    }
+
+    .suggestion-item {
+        padding: 10px 12px;
+    }
+
+    .stat-item h3 {
+        font-size: 36px;
+    }
+}
