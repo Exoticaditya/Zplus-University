@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Learning Hub LMS - ZplusUni</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1d4ed8", // Using the bright blue from the brand
+                        "primary-dark": "#1e40af",
+                        "secondary": "#a855f7", // Purple accent seen in the brand
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e293b",
+                        "text-light": "#0f172a",
+                        "text-dark": "#f1f5f9",
+                        "muted-light": "#64748b",
+                        "muted-dark": "#94a3b8",
+                        "success": "#10b981",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': "1rem",
+                        '2xl': "1.5rem",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(29, 78, 216, 0.3)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>.hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .tab-active {
+            @apply text-primary border-b-2 border-primary font-semibold dark:text-blue-400 dark:border-blue-400;
+        }
+        .tab-inactive {
+            @apply text-muted-light border-b-2 border-transparent hover:text-text-light dark:text-muted-dark dark:hover:text-text-dark;
+        }
+        .chat-bubble-me {
+            border-bottom-right-radius: 0;
+        }
+        .chat-bubble-them {
+            border-bottom-left-radius: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-text-light dark:text-text-dark antialiased min-h-screen pb-20 transition-colors duration-300">
+<header class="fixed top-0 w-full z-40 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+<div class="px-4 py-3 flex items-center justify-between max-w-2xl mx-auto">
+<div class="flex items-center gap-2">
+<button class="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-muted-light dark:text-muted-dark transition-colors">
+<span class="material-icons-round">arrow_back</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">
+<span class="material-icons-round text-lg">school</span>
+</div>
+<span class="font-bold text-lg tracking-tight">Zplus<span class="text-primary dark:text-blue-400">Uni</span></span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-muted-light dark:text-muted-dark transition-colors">
+<span class="material-icons-round">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-surface-light dark:border-surface-dark"></span>
+</button>
+<button class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-round text-xl dark:hidden">dark_mode</span>
+<span class="material-icons-round text-xl hidden dark:block">light_mode</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-16 max-w-2xl mx-auto">
+<div class="relative w-full aspect-video bg-black sticky top-16 z-30 shadow-lg">
+<img alt="Lecture coding screen" class="w-full h-full object-cover opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr6x4k-YcYEqVdbmV4AO7RRDGBItC7eusVxp0OxbESC7Jt74sWO5P14G9mAX47lv6AnHObstgnyhEyg137g7F3RnlzLmXPxeghjl3zk0DNwqv5jtqbVToLn1nPwnXxqxFKfUmyB5ryvS47LKfkHXuYZwaUW3JbLeEi6kY7x05W3CZJPjZOLos-sqatVEV_unHGxUg54zd5flth02uoY0r9JA3slzxkE4j26-2TD7BZbq_JzwNPwevgFc3PCqrklHGWap071V3FuawM"/>
+<div class="absolute inset-0 flex flex-col justify-between p-4 bg-gradient-to-t from-black/80 via-transparent to-black/40">
+<div class="flex justify-between items-start">
+<span class="bg-red-600 text-white text-xs px-2 py-0.5 rounded flex items-center gap-1 font-medium animate-pulse">
+<span class="w-1.5 h-1.5 bg-white rounded-full"></span> LIVE
+                    </span>
+<button class="text-white/80 hover:text-white">
+<span class="material-icons-round">cast</span>
+</button>
+</div>
+<div class="flex items-center justify-center absolute inset-0 pointer-events-none">
+<button class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white pointer-events-auto hover:bg-white/30 hover:scale-105 transition-all">
+<span class="material-icons-round text-4xl ml-1">play_arrow</span>
+</button>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-white text-xs font-medium">
+<span>14:32</span>
+<span>45:00</span>
+</div>
+<div class="w-full h-1 bg-white/30 rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-primary relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 py-5 bg-surface-light dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-start justify-between gap-4 mb-2">
+<h1 class="text-xl font-bold leading-tight">Advanced System Architecture with Node.js &amp; Microservices</h1>
+<button class="flex-shrink-0 text-primary dark:text-blue-400">
+<span class="material-icons-round">bookmark_border</span>
+</button>
+</div>
+<div class="flex items-center gap-3 text-sm text-muted-light dark:text-muted-dark mb-4">
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-base">person</span>
+<span>Prof. Sarah Chen</span>
+</div>
+<span class="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
+<div class="flex items-center gap-1 text-warning">
+<span class="material-icons-round text-base">star</span>
+<span>4.9</span>
+</div>
+</div>
+<div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-xl border border-blue-100 dark:border-blue-800/50">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-semibold text-primary dark:text-blue-400 uppercase tracking-wide">Course Progress</span>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-300">65%</span>
+</div>
+<div class="w-full h-2 bg-blue-200 dark:bg-blue-800 rounded-full overflow-hidden">
+<div class="w-[65%] h-full bg-gradient-to-r from-primary to-blue-400 rounded-full shadow-glow"></div>
+</div>
+</div>
+<div class="mt-4 flex gap-3">
+<button class="flex-1 bg-primary hover:bg-primary-dark text-white py-2.5 px-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all active:scale-95">
+<span class="material-icons-round text-lg">videocam</span>
+                    Join Live Session
+                </button>
+<button class="flex-1 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-text-light dark:text-text-dark hover:bg-gray-50 dark:hover:bg-gray-800 py-2.5 px-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all">
+<span class="material-icons-round text-lg text-secondary">share</span>
+                    Share Class
+                </button>
+</div>
+</div>
+<div class="sticky top-[calc(4rem+56.25vw)] z-20 bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-700 shadow-sm overflow-x-auto hide-scrollbar">
+<div class="flex px-4 min-w-max">
+<button class="px-4 py-3 text-sm font-medium tab-active transition-all">Lectures</button>
+<button class="px-4 py-3 text-sm font-medium tab-inactive transition-all">Resources</button>
+<button class="px-4 py-3 text-sm font-medium tab-inactive transition-all">Notes</button>
+<button class="px-4 py-3 text-sm font-medium tab-inactive transition-all">Doubt Forum</button>
+<button class="px-4 py-3 text-sm font-medium tab-inactive transition-all">Reviews</button>
+</div>
+</div>
+<div class="p-5 space-y-6 bg-gray-50 dark:bg-background-dark min-h-[50vh]">
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-lg text-text-light dark:text-text-dark">Module 3: Backend Scalability</h3>
+<span class="text-xs text-muted-light dark:text-muted-dark font-medium bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">2h 15m remaining</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-soft border-l-4 border-primary ring-1 ring-gray-100 dark:ring-gray-800">
+<div class="flex gap-4">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+<img alt="Code snippet" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQYFQDWFXAtK05Q83Jv3g9W2-6SWF2nlbVH-yKMpGLpPkYR512F_YjdPQJJUNLYcYCyxX5SQ57oqKi8KHlyoOxXbtHtWRdBtiW01_N_PSPtkuMSQYe7rkLYRxhT2ke1ovO2bgjgIYBhernIdJi1h2S9zQbS7sYxyLc9kWkIKfk2gYI5on7wM5isLIZBY_3hn0tWHIHQ2_DTQkF-K0nTvrAUJiuXTEy9JvfPka2JpiI-aVhiujL50MJJd9RInnlqnbi5KzFDfqeIIaB"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="material-icons-round text-white animate-pulse">equalizer</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<h4 class="font-semibold text-primary dark:text-blue-400 text-sm mb-1">Introduction to Microservices</h4>
+<p class="text-xs text-muted-light dark:text-muted-dark line-clamp-2">Understanding the monolithic vs microservices architecture patterns.</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-[10px] font-bold bg-blue-100 dark:bg-blue-900 text-primary dark:text-blue-300 px-1.5 py-0.5 rounded">PLAYING</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all opacity-75">
+<div class="flex gap-4">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+<img alt="Server room" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnIyoNKzbH_nCiRc3TYmgs1M4JvxNdEJ8JUt96yUtLz4_e2SyKtTPOsh4GBTTlqUth78Y93DU-WMawm7dkIyrFcZmStQmf6mMkv0u3ReLMD0WfjjnOKLK-QWgao_0JbOgHd0a1iaKfII8f474CYbRKAMaGmpxmyRaRLbrYW3xlTwljJbwHxUsFp1-BBfDUFb14Y5RQvLJgZEhiGvyJ2R6KgcsV5e6Rtif0RCzRAtLyIJvdZKTZI7Up1iHCB152OobQ2-c3-9HnDFmV"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+<div class="bg-success rounded-full p-0.5">
+<span class="material-icons-round text-white text-sm">check</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<h4 class="font-semibold text-text-light dark:text-text-dark text-sm mb-1 line-through decoration-muted-light">Load Balancing Strategies</h4>
+<p class="text-xs text-muted-light dark:text-muted-dark">Nginx configuration and AWS ALB setup.</p>
+</div>
+<div class="flex items-center gap-3 mt-2 text-xs text-muted-light dark:text-muted-dark">
+<span class="flex items-center gap-1"><span class="material-icons-round text-sm">schedule</span> 18:00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all group">
+<div class="flex gap-4">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-icons-round text-muted-light dark:text-muted-dark text-2xl">lock</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<h4 class="font-semibold text-text-light dark:text-text-dark text-sm mb-1 group-hover:text-primary transition-colors">Database Sharding</h4>
+<p class="text-xs text-muted-light dark:text-muted-dark">Horizontal scaling techniques for PostgreSQL.</p>
+</div>
+<div class="flex items-center gap-3 mt-2 text-xs text-muted-light dark:text-muted-dark">
+<span class="flex items-center gap-1"><span class="material-icons-round text-sm">schedule</span> 22:45</span>
+<span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+<span>Quiz included</span>
+</div>
+</div>
+<button class="self-center p-2 text-gray-300 hover:text-primary transition-colors">
+<span class="material-icons-round">download</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-8 mb-4">
+<h3 class="font-bold text-lg text-text-light dark:text-text-dark mb-4">Upcoming Live Session</h3>
+<div class="bg-gradient-to-br from-secondary to-purple-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold border border-white/10">Tomorrow, 10:00 AM</span>
+<span class="material-icons-round text-white/80">event</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Q&amp;A: Microservices Architecture</h4>
+<p class="text-purple-100 text-sm mb-4">Live doubt clearing session with industry experts.</p>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<img alt="Student" class="w-8 h-8 rounded-full border-2 border-purple-600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbPiFQnwrXKX2hmn1ujAC1SqxtGeidJWjs2lAXCUooTQ1dHz5rgcKpqj9QUSGsh5P94z6gcfnBNmCbwKqll89O8y7i0YhO3SZ6AWmQG9K6fB0KqD_NQdMExMm8o6jfVBiqQFuCwGClt4oyZmMDxYOnbyYijKwBbJzOFYDhRGnHt9cN_VCZC8LgHISLPWxxs6XL2YZzzQ4Dxx8mQB37aZ51ciWI7GbxscGyilI6q7ezXQLfGyNHpgE6lCd-Bm02Wy9-832mlYVOVFsd"/>
+<img alt="Student" class="w-8 h-8 rounded-full border-2 border-purple-600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuJLhlYdJp5Kk8E31cwUFTvpVj9gTnccQ_N0xDKzUSXV6tpqzuHG14nm4tx9sdHuen_Om8Own8GaWbN60xaz8C1sN2QQF26X2Uytax_vX97B7af2mVyeHSduVUpez4mIegvbCcAcD-05WrnVpKm_UnbRKH6AR8uKrYPWEfhvPjIA6DmjFlwh3NEldGfdeACmmMT_id6XeB__H9BSsHXYs6HfNkH6an4L5aPrlyb0ImxmnIwtDJMY_BU7ino7y-gOE9FqiSZv31r-zN"/>
+<img alt="Student" class="w-8 h-8 rounded-full border-2 border-purple-600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP-tYZRC0-fpZaXjxipVF5KYKQN2oOGy4sbyqXTdCqaL-YXumhrCrwKfodzWkwjnjNn5eZaKlTBHOSkmrCwHl7ehjmd8x8Rh1u9PfiSnMHyoxVbdWL-CQqQeBCAyfKOuTzYMLarlr_MMkz0-dzQuvbX_CBheJUyhJkOUmd_ubbh7_FfKZrSxlTHXHvwzC41ltfxhS-KuQMsUT628eokCFSbMLWdqF9OL-BQSXC0E4jJz3zVh7rl-kzpX7cMNEv9pBA87l7nzDehWgy"/>
+<div class="w-8 h-8 rounded-full border-2 border-purple-600 bg-purple-900 text-[10px] flex items-center justify-center font-bold">+42</div>
+</div>
+<button class="bg-white text-purple-700 px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-gray-100 transition-colors">
+                                Set Reminder
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-24 right-5 z-40">
+<button class="w-14 h-14 bg-black dark:bg-white text-white dark:text-black rounded-full shadow-lg shadow-black/20 flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-icons-round text-2xl">chat</span>
+</button>
+</div>
+<nav class="fixed bottom-0 w-full bg-surface-light dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 pb-safe pt-2 z-50">
+<div class="flex justify-around items-center max-w-2xl mx-auto px-2">
+<button class="flex flex-col items-center gap-1 p-2 text-primary dark:text-blue-400">
+<span class="material-icons-round">menu_book</span>
+<span class="text-[10px] font-medium">Learn</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-muted-light dark:text-muted-dark hover:text-primary dark:hover:text-blue-400 transition-colors">
+<span class="material-icons-round">grid_view</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-muted-light dark:text-muted-dark hover:text-primary dark:hover:text-blue-400 transition-colors">
+<span class="material-icons-round">calendar_today</span>
+<span class="text-[10px] font-medium">Schedule</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-muted-light dark:text-muted-dark hover:text-primary dark:hover:text-blue-400 transition-colors">
+<span class="material-icons-round">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+<div class="h-5 w-full"></div>
+</nav>
+
+</body></html>

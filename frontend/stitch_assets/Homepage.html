@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZPLUS University Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1d4ed8", // Deep Blue
+                        secondary: "#a855f7", // Purple
+                        accent: "#10b981", // Green
+                        "background-light": "#f8fafc", // Slate 50
+                        "background-dark": "#0f172a", // Slate 900
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                        "text-light": "#1e293b",
+                        "text-dark": "#f1f5f9",
+                        "subtext-light": "#64748b",
+                        "subtext-dark": "#94a3b8",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(29, 78, 216, 0.3)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .text-gradient-blue {
+            background: linear-gradient(to right, #1d4ed8, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-purple {
+            background: linear-gradient(to right, #7e22ce, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .dark .bg-pattern {
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark antialiased transition-colors duration-300">
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="px-4 py-3 flex items-center justify-between max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+<span class="material-icons-round text-2xl">school</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Zplus<span class="text-primary">Uni</span></span>
+</div>
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+<span class="material-icons-round text-2xl">menu</span>
+</button>
+</div>
+</header>
+<section class="pt-28 pb-12 px-4 relative overflow-hidden bg-pattern">
+<div class="flex justify-center mb-6">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-300 text-xs font-semibold shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                Zplus University 2026 Ecosystem Live
+            </div>
+</div>
+<div class="text-center max-w-2xl mx-auto">
+<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
+                The Future of <br/>
+<span class="text-primary">Higher Education</span>
+</h1>
+<p class="text-subtext-light dark:text-subtext-dark text-lg leading-relaxed mb-8 px-2">
+                A comprehensive, Next-Gen Learning Management System uniting Administrators, Teachers, and Students in a single, high-performance ecosystem.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full px-2">
+<button class="w-full sm:w-auto px-8 py-3.5 bg-primary hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]">
+                    Apply Now
+                    <span class="material-icons-round text-lg">arrow_forward</span>
+</button>
+<button class="w-full sm:w-auto px-8 py-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-xl shadow-sm flex items-center justify-center gap-2 transition-all">
+                    Explore Colleges
+                    <span class="material-icons-round text-lg">search</span>
+</button>
+</div>
+</div>
+</section>
+<section class="py-8 px-4 border-t border-slate-100 dark:border-slate-800">
+<div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
+<div class="p-4 rounded-2xl bg-white dark:bg-slate-800/50 shadow-soft border border-slate-100 dark:border-slate-800 text-center">
+<div class="text-3xl font-bold text-primary mb-1">500+</div>
+<div class="text-xs font-semibold uppercase tracking-wider text-subtext-light dark:text-subtext-dark">Top Colleges</div>
+</div>
+<div class="p-4 rounded-2xl bg-white dark:bg-slate-800/50 shadow-soft border border-slate-100 dark:border-slate-800 text-center">
+<div class="text-3xl font-bold text-secondary mb-1">10k+</div>
+<div class="text-xs font-semibold uppercase tracking-wider text-subtext-light dark:text-subtext-dark">Active Students</div>
+</div>
+<div class="p-4 rounded-2xl bg-white dark:bg-slate-800/50 shadow-soft border border-slate-100 dark:border-slate-800 text-center">
+<div class="text-3xl font-bold text-secondary mb-1">98%</div>
+<div class="text-xs font-semibold uppercase tracking-wider text-subtext-light dark:text-subtext-dark">Placement Rate</div>
+</div>
+<div class="p-4 rounded-2xl bg-white dark:bg-slate-800/50 shadow-soft border border-slate-100 dark:border-slate-800 text-center">
+<div class="text-3xl font-bold text-accent mb-1">24/7</div>
+<div class="text-xs font-semibold uppercase tracking-wider text-subtext-light dark:text-subtext-dark">AI Support</div>
+</div>
+</div>
+</section>
+<section class="py-16 px-4 bg-slate-50 dark:bg-slate-900/50">
+<div class="max-w-md mx-auto">
+<div class="text-center mb-10">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Designed for Every Role</h2>
+<p class="text-subtext-light dark:text-subtext-dark leading-relaxed">
+                    Secure, dedicated dashboards tailored specifically to your needs, powered by Supabase Authentication and Role-Based Access Control.
+                </p>
+</div>
+<div class="space-y-6">
+<div class="group bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-soft hover:shadow-lg transition-all border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-purple-100 dark:bg-purple-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-secondary mb-4 relative z-10">
+<span class="material-icons-round">admin_panel_settings</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">Admin Console</h3>
+<p class="text-sm text-subtext-light dark:text-subtext-dark mb-6 leading-relaxed relative z-10">
+                        Manage the global college directory, evaluate pending teacher approvals, and monitor platform telemetrics via the AI Scraper.
+                    </p>
+<a class="inline-flex items-center text-sm font-bold text-secondary hover:text-purple-700 dark:hover:text-purple-400 transition-colors relative z-10" href="#">
+                        Access Portal <span class="material-icons-round text-base ml-1">arrow_forward</span>
+</a>
+</div>
+<div class="group bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-soft hover:shadow-lg transition-all border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-blue-100 dark:bg-blue-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-primary mb-4 relative z-10">
+<span class="material-icons-round">school</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">Teacher Workspace</h3>
+<p class="text-sm text-subtext-light dark:text-subtext-dark mb-6 leading-relaxed relative z-10">
+                        Design courses, schedule live classes, process student assignments, and securely upload study materials to Cloudinary.
+                    </p>
+<a class="inline-flex items-center text-sm font-bold text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors relative z-10" href="#">
+                        Access Portal <span class="material-icons-round text-base ml-1">arrow_forward</span>
+</a>
+</div>
+<div class="group bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-soft hover:shadow-lg transition-all border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-green-100 dark:bg-green-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/40 flex items-center justify-center text-accent mb-4 relative z-10">
+<span class="material-icons-round">backpack</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">Student Hub</h3>
+<p class="text-sm text-subtext-light dark:text-subtext-dark mb-6 leading-relaxed relative z-10">
+                        Consume course content via the dual-pane cinematic LMS viewer, track academic progress, and monitor vital deadline alerts.
+                    </p>
+<a class="inline-flex items-center text-sm font-bold text-accent hover:text-green-700 dark:hover:text-green-400 transition-colors relative z-10" href="#">
+                        Access Portal <span class="material-icons-round text-base ml-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 px-4 bg-white dark:bg-background-dark relative">
+<div class="absolute left-1/2 -translate-x-1/2 top-0 h-16 w-px bg-slate-200 dark:bg-slate-800"></div>
+<div class="max-w-2xl mx-auto pt-8">
+<span class="inline-block py-1 px-3 rounded-md bg-blue-100 dark:bg-blue-900/30 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                Our Mission
+            </span>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                Elevating Global <br/>Education Standards.
+            </h2>
+<div class="space-y-6 text-subtext-light dark:text-subtext-dark leading-relaxed">
+<p>
+                    Zplus University is an elite architecture combining world-class educators with cutting-edge learning technologies. Our platform was rebuilt from the ground up in 2026 to utilize Next.js Server-Side Rendering and PostgreSQL cloud infrastructure.
+                </p>
+<p>
+                    We believe that powerful tools create powerful outcomes. Whether you're exploring the College Directory via our Mega Filters or participating in immersive Virtual 360 Campus Tours, Zplus delivers an unparalleled academic experience.
+                </p>
+</div>
+<div class="flex flex-wrap gap-6 mt-10">
+<div class="flex items-center gap-2">
+<span class="material-icons-round text-primary text-xl">verified</span>
+<span class="font-bold text-slate-800 dark:text-slate-200 text-sm">UGC Approved</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-round text-secondary text-xl">language</span>
+<span class="font-bold text-slate-800 dark:text-slate-200 text-sm">Global Network</span>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 px-4 bg-primary text-white text-center">
+<div class="max-w-lg mx-auto">
+<h2 class="text-3xl font-bold mb-6">Ready to begin your journey?</h2>
+<p class="text-blue-100 mb-8 leading-relaxed">
+                Join the Zplus Ecosystem today and unlock your future. Creating an account takes less than 30 seconds.
+            </p>
+<button class="w-full sm:w-auto px-8 py-4 bg-white text-primary font-bold rounded-full shadow-xl hover:shadow-2xl hover:bg-slate-50 transition-all transform hover:scale-[1.02]">
+                Start Learning Now
+            </button>
+</div>
+</section>
+<footer class="bg-slate-950 text-slate-400 py-16 px-4">
+<div class="max-w-7xl mx-auto">
+<div class="mb-12">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+<span class="material-icons-round text-2xl">school</span>
+</div>
+<span class="text-2xl font-bold tracking-tight text-white">Zplus<span class="text-primary">Uni</span></span>
+</div>
+<p class="text-sm leading-relaxed max-w-sm mb-8 text-slate-500">
+                    The fully-integrated Next-Gen Education Management System. Join thousands of students and educators transforming modern learning.
+                </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-lg">link</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-lg">share</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+<div>
+<h4 class="text-white font-bold mb-4">Explore</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">College Directory</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Compare Colleges</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Student Portal</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Resources</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Admissions Guide</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Live Webinars</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Educator Docs</a></li>
+</ul>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<h4 class="text-white font-bold mb-4">Contact Us</h4>
+<ul class="space-y-4 text-sm">
+<li class="flex items-start gap-3">
+<span class="material-icons-round text-primary text-base mt-0.5">location_on</span>
+<span>Zplus Tech Park, Block C<br/>New Delhi, India 110001</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-icons-round text-primary text-base">email</span>
+<span>contact@zplusuniversity.com</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-icons-round text-primary text-base">call</span>
+<span>+91 98765 43210</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-900 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+<p>© 2026 Zplus University. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+<div class="fixed bottom-6 right-6 z-50">
+<button class="w-14 h-14 bg-primary rounded-full shadow-lg shadow-blue-500/40 text-white flex items-center justify-center hover:bg-blue-700 transition-transform hover:scale-110 active:scale-95">
+<span class="material-icons-round text-2xl">accessibility_new</span>
+</button>
+</div>
+<div class="fixed bottom-6 left-6 z-50">
+<button class="w-12 h-12 bg-secondary rounded-full shadow-lg shadow-purple-500/40 text-white flex items-center justify-center hover:bg-purple-700 transition-transform hover:scale-110 active:scale-95">
+<span class="material-icons-round text-xl">school</span>
+</button>
+</div>
+
+</body></html>

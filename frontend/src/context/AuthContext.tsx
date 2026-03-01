@@ -1,0 +1,62 @@
+'use client';
+
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import { Session, User } from '@supabase/supabase-js';
+import { useRouter, usePathname } from 'next/navigation';
+
+interface AuthContextType {
+    session: Session | null;
+    user: User | null;
+    signOut: () => Promise<void>;
+    isLoading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+    session: null,
+    user: null,
+    signOut: async () => { },
+    isLoading: true
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+    const [session, setSession] = useState<Session | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        // Check active session on mount
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+            setUser(session?.user ?? null);
+            setIsLoading(false);
+        });
+
+        // Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            (_event, session) => {
+                setSession(session);
+                setUser(session?.user ?? null);
+            }
+        );
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
+    const signOut = async () => {
+        await supabase.auth.signOut();
+        router.push('/login');
+    };
+
+    return (
+        <AuthContext.Provider value={{ session, user, signOut, isLoading }}>
+            {children}
+        </AuthContext.Provider>
+    );
+}
+
+export const useAuth = () => useContext(AuthContext);
