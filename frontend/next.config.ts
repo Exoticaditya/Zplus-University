@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   // Allow the frontend to call the backend API during Next.js SSR
   // without CORS issues in production
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://zpluse-university-backend.onrender.com/api/v1";
     // Only proxy if running locally — on Vercel the real API URL is used directly
     if (process.env.NODE_ENV === "development") {
       return [

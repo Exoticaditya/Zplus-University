@@ -13,7 +13,7 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
         headers.set('Content-Type', 'application/json');
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://zpluse-university-backend.onrender.com/api/v1';
 
     const response = await fetch(`${baseUrl}${endpoint}`, {
         ...options,

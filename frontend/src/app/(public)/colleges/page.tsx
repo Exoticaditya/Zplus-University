@@ -50,7 +50,7 @@ export default function CollegesDirectory() {
         <div className="bg-background-light dark:bg-background-dark font-sans text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
 
 
-            <main className="pb-20 max-w-7xl mx-auto pt-4 relative">
+            <main className="pb-20 max-w-7xl mx-auto pt-24 relative">
                 <section className="px-4 pt-6 pb-4">
                     <div className="mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary text-xs font-semibold mb-3 border border-blue-100 dark:border-blue-800">

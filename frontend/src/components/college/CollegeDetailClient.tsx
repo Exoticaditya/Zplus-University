@@ -74,12 +74,12 @@ interface College {
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const TABS = [
-    { id: 'overview',   label: 'Overview',       icon: 'home' },
-    { id: 'courses',    label: 'Courses & Fees',  icon: 'menu_book' },
-    { id: 'admissions', label: 'Admissions',      icon: 'how_to_reg' },
-    { id: 'placements', label: 'Placements',      icon: 'trending_up' },
-    { id: 'gallery',    label: 'Gallery',         icon: 'photo_library' },
-    { id: 'reviews',    label: 'Reviews',         icon: 'star' },
+    { id: 'overview', label: 'Overview', icon: 'home' },
+    { id: 'courses', label: 'Courses & Fees', icon: 'menu_book' },
+    { id: 'admissions', label: 'Admissions', icon: 'how_to_reg' },
+    { id: 'placements', label: 'Placements', icon: 'trending_up' },
+    { id: 'gallery', label: 'Gallery', icon: 'photo_library' },
+    { id: 'reviews', label: 'Reviews', icon: 'star' },
 ] as const;
 
 type TabId = typeof TABS[number]['id'];
@@ -258,7 +258,7 @@ export default function CollegeDetailClient({ id, initialData }: { id: string; i
             </div>
 
             {/* ══ STICKY TABS ══ */}
-            <div className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="sticky top-[73px] z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 lg:px-8">
                     <div className="flex overflow-x-auto gap-1 py-1" style={{ scrollbarWidth: 'none' }}>
                         {TABS.map(tab => (
@@ -398,7 +398,7 @@ export default function CollegeDetailClient({ id, initialData }: { id: string; i
                                             { step: 4, title: 'Pay application fee', description: 'Complete the payment online to submit your application.' },
                                             { step: 5, title: 'Entrance exam / Interview', description: 'Appear for the required entrance exam or merit-based interview.' },
                                             { step: 6, title: 'Check merit list & report', description: 'Check the merit list on results day and report with originals for admission.' },
-                                          ] as AdmissionStep[]
+                                        ] as AdmissionStep[]
                                     ).map((step, i, arr) => (
                                         <div key={i} className="flex gap-5 relative">
                                             {i < arr.length - 1 && <div className="absolute left-5 top-12 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700" />}
@@ -522,12 +522,12 @@ export default function CollegeDetailClient({ id, initialData }: { id: string; i
                             </Section>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 {[
-                                    { label: 'Academics',       icon: 'school',        score: 4.5 },
-                                    { label: 'Infrastructure',  icon: 'apartment',     score: 4.2 },
-                                    { label: 'Placements',      icon: 'work',          score: 4.7 },
-                                    { label: 'Faculty',         icon: 'person_edit',   score: 4.3 },
-                                    { label: 'Campus Life',     icon: 'celebration',   score: 4.1 },
-                                    { label: 'Value for Money', icon: 'savings',       score: 4.0 },
+                                    { label: 'Academics', icon: 'school', score: 4.5 },
+                                    { label: 'Infrastructure', icon: 'apartment', score: 4.2 },
+                                    { label: 'Placements', icon: 'work', score: 4.7 },
+                                    { label: 'Faculty', icon: 'person_edit', score: 4.3 },
+                                    { label: 'Campus Life', icon: 'celebration', score: 4.1 },
+                                    { label: 'Value for Money', icon: 'savings', score: 4.0 },
                                 ].map(cat => (
                                     <div key={cat.label} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-4">
                                         <div className="flex items-center gap-2 mb-2">
@@ -584,11 +584,11 @@ export default function CollegeDetailClient({ id, initialData }: { id: string; i
                             <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-4">
                                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Quick Info</h3>
                                 {[
-                                    { icon: 'location_on',  label: 'Location',     value: `${college.city || '—'}, ${college.state || '—'}` },
-                                    { icon: 'history_edu',  label: 'Established',  value: college.established_year?.toString() || '—' },
-                                    { icon: 'account_balance', label: 'Type',       value: college.type || '—' },
-                                    { icon: 'verified',     label: 'Accreditation', value: college.naac_grade ? `NAAC ${college.naac_grade}` : college.affiliation || '—' },
-                                    { icon: 'emoji_events', label: 'NIRF Rank',    value: college.nirf_rank ? `#${college.nirf_rank}` : '—' },
+                                    { icon: 'location_on', label: 'Location', value: `${college.city || '—'}, ${college.state || '—'}` },
+                                    { icon: 'history_edu', label: 'Established', value: college.established_year?.toString() || '—' },
+                                    { icon: 'account_balance', label: 'Type', value: college.type || '—' },
+                                    { icon: 'verified', label: 'Accreditation', value: college.naac_grade ? `NAAC ${college.naac_grade}` : college.affiliation || '—' },
+                                    { icon: 'emoji_events', label: 'NIRF Rank', value: college.nirf_rank ? `#${college.nirf_rank}` : '—' },
                                 ].map(row => (
                                     <div key={row.label} className="flex items-start gap-3">
                                         <span className="material-symbols-outlined text-base text-slate-400 mt-0.5">{row.icon}</span>

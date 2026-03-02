@@ -12,8 +12,13 @@ interface ChatMessage {
 export default function GlobalAIChatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
-        { id: '1', text: 'Hi there! I am Z-Bot, your AI admission counselor. How can I help you explore colleges or courses today?', isBot: true, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+        { id: '1', text: 'Hi there! I am Z-Bot, your AI admission counselor. How can I help you explore colleges or courses today?', isBot: true, time: '' }
     ]);
+
+    useEffect(() => {
+        // Set the initial message time on mount to avoid hydration mismatch
+        setMessages(prev => prev.map(m => m.id === '1' ? { ...m, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) } : m));
+    }, []);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
