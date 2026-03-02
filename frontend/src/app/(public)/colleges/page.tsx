@@ -48,19 +48,7 @@ export default function CollegesDirectory() {
 
     return (
         <div className="bg-background-light dark:bg-background-dark font-sans text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
-            <header className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-                <div className="px-4 py-3 flex items-center justify-between max-w-7xl mx-auto">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold shadow-soft">
-                            <span className="material-symbols-outlined text-sm">school</span>
-                        </div>
-                        <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">Zpluse<span className="text-primary"> University</span></span>
-                    </Link>
-                    <button className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
-                        <span className="material-symbols-outlined">menu</span>
-                    </button>
-                </div>
-            </header>
+
 
             <main className="pb-20 max-w-7xl mx-auto pt-4 relative">
                 <section className="px-4 pt-6 pb-4">
@@ -160,26 +148,7 @@ export default function CollegesDirectory() {
                 </section>
             </main>
 
-            <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 dark:bg-slate-800 text-white rounded-full px-6 py-3 shadow-2xl z-50 flex items-center gap-8 border border-slate-700/50 backdrop-blur-md">
-                <Link href="/" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-xl">home</span>
-                </Link>
-                <Link href="/colleges" className="flex flex-col items-center gap-1 text-primary">
-                    <span className="material-symbols-outlined text-xl">explore</span>
-                    <span className="w-1 h-1 rounded-full bg-primary mt-1"></span>
-                </Link>
-                <div className="relative -top-6">
-                    <button className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-blue-500/40 hover:scale-105 transition-transform border-4 border-slate-50 dark:border-slate-950">
-                        <span className="material-symbols-outlined text-white">add</span>
-                    </button>
-                </div>
-                <Link href="/dashboard" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-xl">chat_bubble</span>
-                </Link>
-                <Link href="/login" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-xl">person</span>
-                </Link>
-            </nav>
+
         </div>
     );
 }
@@ -187,8 +156,8 @@ export default function CollegesDirectory() {
 function FilterChip({ label, icon, active }: { label: string, icon: string, active: boolean }) {
     return (
         <button className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors shadow-sm ${active
-                ? 'bg-primary text-white shadow-md shadow-blue-500/20'
-                : 'bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary'
+            ? 'bg-primary text-white shadow-md shadow-blue-500/20'
+            : 'bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary'
             }`}>
             <span className="material-symbols-outlined text-sm">{icon}</span> {label}
         </button>
