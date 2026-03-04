@@ -42,22 +42,22 @@ export const PUBLIC_NAV_LINKS = [
 // ─────────────────────────────────────────────────────────────────────────────
 export const STUDY_HUB_NAV: Record<'student' | 'teacher' | 'admin', { href: string; label: string; icon: string }[]> = {
     student: [
-        { href: '/study-hub',              label: 'My Classes',   icon: 'play_lesson' },
-        { href: '/study-hub/live-classes', label: 'Live Classes', icon: 'videocam' },
-        { href: '/study-hub/performance',  label: 'Performance',  icon: 'trending_up' },
-        { href: '/study-hub/profile',      label: 'Profile',      icon: 'account_circle' },
+        { href: '/dashboard', label: 'Overview', icon: 'dashboard' },
+        { href: '/dashboard?tab=courses', label: 'My Courses', icon: 'play_lesson' },
+        { href: '/dashboard?tab=schedule', label: 'Schedule', icon: 'calendar_today' },
+        { href: '/dashboard?tab=profile', label: 'Profile', icon: 'account_circle' },
     ],
     teacher: [
-        { href: '/teacher',          label: 'Workspace',   icon: 'history_edu' },
-        { href: '/teacher/courses',  label: 'My Courses',  icon: 'library_books' },
-        { href: '/teacher/materials', label: 'Materials',  icon: 'cloud_upload' },
-        { href: '/teacher/students', label: 'Students',    icon: 'groups' },
+        { href: '/teacher', label: 'Workspace', icon: 'history_edu' },
+        { href: '/teacher?tab=courses', label: 'My Courses', icon: 'library_books' },
+        { href: '/teacher?tab=materials', label: 'Materials', icon: 'cloud_upload' },
+        { href: '/teacher?tab=students', label: 'Students', icon: 'groups' },
     ],
     admin: [
-        { href: '/admin',          label: 'Overview',  icon: 'dashboard' },
-        { href: '/admin/colleges', label: 'Colleges',  icon: 'account_balance' },
-        { href: '/admin/users',    label: 'Users',     icon: 'group' },
-        { href: '/admin/settings', label: 'Settings',  icon: 'settings' },
+        { href: '/admin', label: 'Overview', icon: 'dashboard' },
+        { href: '/admin?tab=colleges', label: 'Colleges', icon: 'account_balance' },
+        { href: '/admin?tab=users', label: 'Users', icon: 'group' },
+        { href: '/admin?tab=settings', label: 'Settings', icon: 'settings' },
     ],
 };
 
@@ -67,19 +67,19 @@ export const STUDY_HUB_NAV: Record<'student' | 'teacher' | 'admin', { href: stri
 // ─────────────────────────────────────────────────────────────────────────────
 export const FOOTER_LINKS = {
     explore: [
-        { href: '/colleges',        label: 'College Directory' },
+        { href: '/colleges', label: 'College Directory' },
         { href: '/colleges/compare', label: 'Compare Colleges' },
-        { href: '/#about',          label: 'About Us' },
-        { href: '/login',           label: 'Student Portal' },
+        { href: '/#about', label: 'About Us' },
+        { href: '/login', label: 'Student Portal' },
     ],
     resources: [
-        { href: '/help',            label: 'Help Center' },
-        { href: '/admissions',      label: 'Admissions Guide' },
-        { href: '/webinars',        label: 'Live Webinars' },
-        { href: '/docs/educators',  label: 'Educator Docs' },
+        { href: '/help', label: 'Help Center' },
+        { href: '/admissions', label: 'Admissions Guide' },
+        { href: '/webinars', label: 'Live Webinars' },
+        { href: '/docs/educators', label: 'Educator Docs' },
     ],
     legal: [
-        { href: '/privacy',         label: 'Privacy Policy' },
-        { href: '/terms',           label: 'Terms of Service' },
+        { href: '/privacy', label: 'Privacy Policy' },
+        { href: '/terms', label: 'Terms of Service' },
     ],
 } as const;

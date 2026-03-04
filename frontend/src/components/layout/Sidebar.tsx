@@ -2,14 +2,29 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { BRAND, STUDY_HUB_NAV } from '@/constants/brandConfig';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Sidebar({ role }: { role: 'admin' | 'teacher' | 'student' }) {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const { user, signOut } = useAuth();
 
-    // Normalise STUDY_HUB_NAV shape to match existing sidebar format
+    const currentTab = searchParams.get('tab');
     const navItems = STUDY_HUB_NAV[role].map(item => ({ name: item.label, href: item.href, icon: item.icon }));
+
+    const isActive = (href: string) => {
+        const [path, query] = href.split('?');
+        if (query) {
+            const tab = new URLSearchParams(query).get('tab');
+            return pathname === path && currentTab === tab;
+        }
+        return pathname === path && !currentTab;
+    };
+
+    const userName = user?.user_metadata?.full_name || role.charAt(0).toUpperCase() + role.slice(1);
+    const userEmail = user?.email || '';
 
     return (
         <aside className="fixed inset-y-0 left-0 w-64 bg-slate-900 border-r border-slate-800 text-slate-300 hidden lg:flex flex-col z-40 transition-transform">
@@ -29,17 +44,17 @@ export default function Sidebar({ role }: { role: 'admin' | 'teacher' | 'student
                     {role} portal
                 </div>
                 {navItems.map((item) => {
-                    const isActive = pathname === item.href;
+                    const active = isActive(item.href);
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all ${isActive
-                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all ${active
+                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                                : 'text-slate-400 hover:text-white hover:bg-slate-800'
                                 }`}
                         >
-                            <span className={`material-symbols-outlined text-[20px] ${isActive ? 'text-white' : 'text-slate-500'}`}>
+                            <span className={`material-symbols-outlined text-[20px] ${active ? 'text-white' : 'text-slate-500'}`}>
                                 {item.icon}
                             </span>
                             {item.name}
@@ -52,15 +67,18 @@ export default function Sidebar({ role }: { role: 'admin' | 'teacher' | 'student
             <div className="p-4 border-t border-slate-800 bg-slate-950/30">
                 <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
                     <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-inner">
-                        A
+                        {userName.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-white truncate">Admin User</p>
-                        <p className="text-xs text-slate-500 truncate">admin@zpluseuniversity.com</p>
+                        <p className="text-sm font-bold text-white truncate">{userName}</p>
+                        <p className="text-xs text-slate-500 truncate">{userEmail}</p>
                     </div>
-                    <span className="material-symbols-outlined text-slate-500">more_vert</span>
+                    <button onClick={signOut} title="Sign out" className="text-slate-500 hover:text-red-400 transition-colors">
+                        <span className="material-symbols-outlined text-[20px]">logout</span>
+                    </button>
                 </div>
             </div>
         </aside>
     );
 }
+

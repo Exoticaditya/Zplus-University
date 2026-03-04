@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { fetchApi } from '@/lib/apiClient';
 import { useToast } from '@/components/ui/Toast';
+import { useAuth } from '@/context/AuthContext';
 
 interface College {
     id: string;
     name: string;
     city: string;
+    state: string;
     type: string;
     rating: number;
 }
@@ -21,47 +24,45 @@ interface User {
 }
 
 export default function AdminDashboard() {
-    const [url, setUrl] = useState('');
-    const [isScraping, setIsScraping] = useState(false);
+    const searchParams = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'overview';
+    const { user } = useAuth();
+    const { addToast } = useToast();
+
     const [colleges, setColleges] = useState<College[]>([]);
     const [users, setUsers] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { addToast } = useToast();
+    // Scraper
+    const [url, setUrl] = useState('');
+    const [isScraping, setIsScraping] = useState(false);
 
-    const loadDashboardData = async () => {
+    const loadData = async () => {
         setIsLoading(true);
         try {
-            const [collegesRes, usersRes] = await Promise.all([
-                fetchApi('/colleges?limit=5'),
-                fetchApi('/auth/users?limit=5')
-            ]);
-            setColleges(collegesRes.data);
-            setUsers(usersRes.data);
-        } catch (err: any) {
-            addToast('error', 'Failed to load panel', err.message);
-        } finally {
-            setIsLoading(false);
-        }
+            const collegesRes = await fetchApi('/colleges?limit=20');
+            setColleges(collegesRes.data || []);
+        } catch { }
+        try {
+            const usersRes = await fetchApi('/auth/users?limit=20');
+            setUsers(usersRes.data || []);
+        } catch { }
+        setIsLoading(false);
     };
 
-    useEffect(() => {
-        loadDashboardData();
-    }, []);
+    useEffect(() => { loadData(); }, []);
 
     const handleScrape = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsScraping(true);
-
         try {
             const data = await fetchApi('/admin/scrape-and-create', {
                 method: 'POST',
                 body: JSON.stringify({ target_url: url })
             });
-
-            addToast('success', 'Generative API Run', `Successfully created: ${data.data.name}`);
+            addToast('success', 'College Generated', `Created: ${data.data?.name || 'New entry'}`);
             setUrl('');
-            loadDashboardData(); // Refresh table
+            loadData();
         } catch (err: any) {
             addToast('error', 'Scraper Failed', err.message);
         } finally {
@@ -69,290 +70,223 @@ export default function AdminDashboard() {
         }
     };
 
+    const stats = [
+        { label: 'Total Colleges', value: colleges.length || '90+', icon: 'account_balance', color: 'blue', trend: '+5 this month' },
+        { label: 'Registered Users', value: users.length || '3', icon: 'groups', color: 'purple', trend: '+12%' },
+        { label: 'Active Teachers', value: '1.2K', icon: 'school', color: 'emerald', trend: '+3%' },
+        { label: 'Total Courses', value: '3,450', icon: 'menu_book', color: 'orange', trend: '+8%' },
+    ];
+
+    const colorMap: Record<string, string> = {
+        blue: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400',
+        purple: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400',
+        emerald: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400',
+        orange: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400',
+    };
+
     return (
-        <div className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark antialiased transition-colors duration-200 min-h-screen font-sans">
-            <div className="max-w-md mx-auto min-h-screen relative flex flex-col pb-24 shadow-2xl bg-background-light dark:bg-background-dark">
-                <header className="flex items-center justify-between px-6 py-5 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 dark:border-gray-800">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold shadow-lg shadow-primary/30">
-                            <span className="material-symbols-outlined text-lg">school</span>
-                        </div>
-                        <h1 className="font-bold text-lg tracking-tight text-gray-900 dark:text-white">
-                            Zpluse<span className="text-primary dark:text-blue-400"> University</span>
-                        </h1>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <button className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                            <span className="material-symbols-outlined text-gray-500 dark:text-gray-400">notifications</span>
-                            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-surface-dark"></span>
-                        </button>
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-purple-500 p-[2px]">
-                            <div className="w-full h-full rounded-full bg-slate-200 dark:bg-gray-800 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[16px] text-slate-500 dark:text-slate-400">person</span>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-                <main className="flex-1 px-5 pt-6 space-y-6">
-                    <div className="flex flex-col space-y-1">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-primary dark:text-blue-400">Global Control Center</span>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">System metrics and pending approvals.</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between h-32 relative overflow-hidden group">
-                            <div className="absolute -right-4 -top-4 w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-full transition-transform group-hover:scale-110"></div>
-                            <div className="relative z-10 flex justify-between items-start">
-                                <div className="p-2 bg-blue-100 dark:bg-blue-900/40 rounded-lg text-blue-600 dark:text-blue-400">
-                                    <span className="material-symbols-outlined text-xl">account_balance</span>
-                                </div>
-                            </div>
-                            <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">{colleges.length + 50}+</p>
-                                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Colleges</p>
-                            </div>
-                        </div>
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between h-32 relative overflow-hidden group">
-                            <div className="absolute -right-4 -top-4 w-16 h-16 bg-purple-50 dark:bg-purple-900/20 rounded-full transition-transform group-hover:scale-110"></div>
-                            <div className="relative z-10 flex justify-between items-start">
-                                <div className="p-2 bg-purple-100 dark:bg-purple-900/40 rounded-lg text-purple-600 dark:text-purple-400">
-                                    <span className="material-symbols-outlined text-xl">groups</span>
-                                </div>
-                                <span className="flex items-center text-xs text-green-500 font-medium">
-                                    <span className="material-symbols-outlined text-[14px] mr-0.5">trending_up</span> +12%
-                                </span>
-                            </div>
-                            <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">{users.length * 12 + 1500}</p>
-                                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Students</p>
-                            </div>
-                        </div>
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between h-32 relative overflow-hidden group">
-                            <div className="absolute -right-4 -top-4 w-16 h-16 bg-orange-50 dark:bg-orange-900/20 rounded-full transition-transform group-hover:scale-110"></div>
-                            <div className="relative z-10 flex justify-between items-start">
-                                <div className="p-2 bg-orange-100 dark:bg-orange-900/40 rounded-lg text-orange-600 dark:text-orange-400">
-                                    <span className="material-symbols-outlined text-xl">school</span>
-                                </div>
-                            </div>
-                            <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">1.2k</p>
-                                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Teachers</p>
-                            </div>
-                        </div>
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between h-32 relative overflow-hidden group">
-                            <div className="absolute -right-4 -top-4 w-16 h-16 bg-teal-50 dark:bg-teal-900/20 rounded-full transition-transform group-hover:scale-110"></div>
-                            <div className="relative z-10 flex justify-between items-start">
-                                <div className="p-2 bg-teal-100 dark:bg-teal-900/40 rounded-lg text-teal-600 dark:text-teal-400">
-                                    <span className="material-symbols-outlined text-xl">menu_book</span>
-                                </div>
-                            </div>
-                            <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">3,450</p>
-                                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Courses</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* SCRAPER CARD MODIFIED FOR MOBILE */}
-                    <div className="bg-surface-light dark:bg-surface-dark p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-xl text-blue-600">
-                                <span className="material-symbols-outlined text-2xl">bolt</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-gray-900 dark:text-white text-sm">College Generator</h3>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Scrape university data instantly.</p>
-                            </div>
-                        </div>
-                        <form onSubmit={handleScrape} className="flex flex-col gap-3">
-                            <input
-                                type="url"
-                                required
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
-                                placeholder="https://example.edu"
-                                className="w-full bg-background-light dark:bg-gray-800 border-none rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary dark:text-white transition-shadow"
-                            />
-                            <button
-                                type="submit"
-                                disabled={isScraping}
-                                className="w-full bg-primary hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm"
-                            >
-                                {isScraping ? (
-                                    <>
-                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                        Generating...
-                                    </>
-                                ) : (
-                                    <>
-                                        <span className="material-symbols-outlined text-lg">api</span>
-                                        Generate Post
-                                    </>
-                                )}
-                            </button>
-                        </form>
-                    </div>
-
-                    <div className="bg-surface-light dark:bg-surface-dark p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 text-sm">
-                                <span className="material-symbols-outlined text-primary text-lg">dns</span>
-                                System Health
-                            </h3>
-                            <span className="px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-[10px] font-bold">Operational</span>
-                        </div>
-                        <div className="space-y-4">
-                            <div>
-                                <div className="flex justify-between text-xs mb-1">
-                                    <span className="text-slate-500 dark:text-slate-400">CPU Load</span>
-                                    <span className="font-semibold text-gray-900 dark:text-white">42%</span>
-                                </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
-                                    <div className="bg-primary h-1.5 rounded-full" style={{ width: '42%' }}></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between text-xs mb-1">
-                                    <span className="text-slate-500 dark:text-slate-400">Cloudinary API</span>
-                                    <span className="font-semibold text-gray-900 dark:text-white">87%</span>
-                                </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
-                                    <div className="bg-orange-500 h-1.5 rounded-full" style={{ width: '87%' }}></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white px-1">Management Actions</h3>
-
-                        {/* TABLES ADAPTED FOR MOBILE LISTINGS */}
-
-                        {/* Colleges List */}
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
-                            <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Recent Colleges</h4>
-                            <div className="space-y-3">
-                                {isLoading ? (
-                                    <p className="text-xs text-center text-slate-500">Loading...</p>
-                                ) : colleges.length === 0 ? (
-                                    <p className="text-xs text-center text-slate-500">No colleges found.</p>
-                                ) : (
-                                    colleges.map((c) => (
-                                        <div key={c.id} className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-2 last:border-0 last:pb-0">
-                                            <div>
-                                                <p className="text-sm font-semibold text-gray-900 dark:text-white">{c.name}</p>
-                                                <p className="text-xs text-slate-500">{c.city} • <span className="uppercase">{c.type}</span></p>
-                                            </div>
-                                            <button className="text-primary text-xs font-semibold">Edit</button>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Users List */}
-                        <div className="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
-                            <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Recent Users</h4>
-                            <div className="space-y-3">
-                                {isLoading ? (
-                                    <p className="text-xs text-center text-slate-500">Loading...</p>
-                                ) : users.length === 0 ? (
-                                    <p className="text-xs text-center text-slate-500">No users found.</p>
-                                ) : (
-                                    users.map((u) => (
-                                        <div key={u.id} className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-2 last:border-0 last:pb-0">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
-                                                    <span className="material-symbols-outlined text-sm">person</span>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-semibold text-gray-900 dark:text-white">{u.full_name || 'N/A'}</p>
-                                                    <p className="text-[10px] text-slate-500 uppercase">{u.role}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 mt-2">
-                            <button className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 text-slate-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors">
-                                <span className="material-symbols-outlined mb-1 text-2xl">analytics</span>
-                                <span className="text-xs font-medium">Reports</span>
-                            </button>
-                            <button className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 text-slate-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors">
-                                <span className="material-symbols-outlined mb-1 text-2xl">campaign</span>
-                                <span className="text-xs font-medium">Announcements</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="pb-6">
-                        <div className="flex items-center justify-between mb-3 px-1">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Audit Log</h3>
-                            <a className="text-xs font-medium text-primary hover:underline" href="#">View All</a>
-                        </div>
-                        <div className="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-700/50 overflow-hidden">
-                            <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                                <div className="p-3 flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">Course "AI 101" Published</p>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400">Prof. Smith • 2m ago</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="p-3 flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">Login Failed (5x)</p>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400">IP 192.168.1.1 • 15m ago</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="p-3 flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">System Backup Complete</p>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400">Automated Task • 1h ago</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
-                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface-dark text-white rounded-full shadow-2xl px-6 py-3 flex items-center gap-8 border border-gray-700/50">
-                    <button className="flex flex-col items-center gap-1 opacity-100">
-                        <span className="material-symbols-outlined text-primary text-xl">dashboard</span>
-                    </button>
-                    <button className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                        <span className="material-symbols-outlined text-xl">people</span>
-                    </button>
-                    <div className="w-10 h-10 -mt-8 rounded-full bg-primary flex items-center justify-center border-4 border-background-light dark:border-background-dark shadow-lg shadow-primary/30 cursor-pointer hover:scale-105 transition-transform">
-                        <span className="material-symbols-outlined text-white text-xl">add</span>
-                    </div>
-                    <button className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                        <span className="material-symbols-outlined text-xl">chat</span>
-                    </button>
-                    <button className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                        <span className="material-symbols-outlined text-xl">settings</span>
-                    </button>
+        <div className="p-6 lg:p-8 space-y-8">
+            {/* Page Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Admin Dashboard</h1>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Welcome back, {user?.user_metadata?.full_name || 'Admin'}</p>
                 </div>
-
-                {/* Background ambient light effects */}
-                <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
-                    <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[30%] bg-primary/5 rounded-full blur-3xl dark:bg-primary/10"></div>
-                    <div className="absolute bottom-[20%] left-[-10%] w-[40%] h-[30%] bg-purple-500/5 rounded-full blur-3xl dark:bg-purple-500/10"></div>
+                <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-bold">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        All Systems Operational
+                    </span>
                 </div>
             </div>
+
+            {/* ────── OVERVIEW TAB ────── */}
+            {activeTab === 'overview' && (
+                <>
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+                        {stats.map((stat) => (
+                            <div key={stat.label} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-lg transition-shadow group">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${colorMap[stat.color]}`}>
+                                        <span className="material-symbols-outlined">{stat.icon}</span>
+                                    </div>
+                                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
+                                        <span className="material-symbols-outlined text-[14px]">trending_up</span>
+                                        {stat.trend}
+                                    </span>
+                                </div>
+                                <p className="text-3xl font-extrabold text-slate-900 dark:text-white">{stat.value}</p>
+                                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wide">{stat.label}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Scraper + System Health */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Scraper */}
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                            <div className="flex items-center gap-3 mb-5">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                    <span className="material-symbols-outlined">bolt</span>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-slate-900 dark:text-white">AI College Generator</h3>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400">Scrape & create college profiles instantly</p>
+                                </div>
+                            </div>
+                            <form onSubmit={handleScrape} className="flex gap-3">
+                                <input
+                                    type="url" required value={url} onChange={(e) => setUrl(e.target.value)}
+                                    placeholder="https://example.edu"
+                                    className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white"
+                                />
+                                <button type="submit" disabled={isScraping}
+                                    className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 text-sm whitespace-nowrap">
+                                    {isScraping ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <span className="material-symbols-outlined text-lg">auto_awesome</span>}
+                                    {isScraping ? 'Generating...' : 'Generate'}
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* System Health */}
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                            <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-5">
+                                <span className="material-symbols-outlined text-blue-600">dns</span>
+                                System Health
+                            </h3>
+                            <div className="space-y-4">
+                                {[
+                                    { name: 'Database', pct: 42, color: 'bg-blue-600' },
+                                    { name: 'API Response', pct: 95, color: 'bg-emerald-500' },
+                                    { name: 'Storage', pct: 67, color: 'bg-orange-500' },
+                                ].map((item) => (
+                                    <div key={item.name}>
+                                        <div className="flex justify-between text-xs mb-1.5">
+                                            <span className="text-slate-500 dark:text-slate-400 font-medium">{item.name}</span>
+                                            <span className="font-bold text-slate-900 dark:text-white">{item.pct}%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+                                            <div className={`${item.color} h-2 rounded-full transition-all`} style={{ width: `${item.pct}%` }} />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Audit Log */}
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <h3 className="font-bold text-slate-900 dark:text-white">Recent Activity</h3>
+                        </div>
+                        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                            {[
+                                { text: 'Course "AI 101" Published', sub: 'Prof. Smith • 2m ago', dot: 'bg-emerald-500' },
+                                { text: 'New student registration', sub: 'student@example.com • 15m ago', dot: 'bg-blue-500' },
+                                { text: 'System Backup Complete', sub: 'Automated Task • 1h ago', dot: 'bg-slate-400' },
+                                { text: 'College profile updated', sub: 'Admin • 3h ago', dot: 'bg-purple-500' },
+                            ].map((log, i) => (
+                                <div key={i} className="px-6 py-3.5 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    <span className={`w-2 h-2 rounded-full ${log.dot} flex-shrink-0`} />
+                                    <div>
+                                        <p className="text-sm font-medium text-slate-900 dark:text-white">{log.text}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">{log.sub}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {/* ────── COLLEGES TAB ────── */}
+            {activeTab === 'colleges' && (
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <h3 className="font-bold text-slate-900 dark:text-white">College Directory ({colleges.length})</h3>
+                    </div>
+                    {isLoading ? (
+                        <div className="p-12 text-center text-slate-500"><div className="w-8 h-8 border-3 border-blue-600/30 border-t-blue-600 rounded-full animate-spin mx-auto" /></div>
+                    ) : (
+                        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                            {colleges.map((c) => (
+                                <div key={c.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                                            <span className="material-symbols-outlined text-lg">account_balance</span>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-sm text-slate-900 dark:text-white">{c.name}</p>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400">{c.city}{c.state ? `, ${c.state}` : ''} • <span className="uppercase">{c.type}</span></p>
+                                        </div>
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">{c.rating ? `★ ${c.rating}` : '—'}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* ────── USERS TAB ────── */}
+            {activeTab === 'users' && (
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <h3 className="font-bold text-slate-900 dark:text-white">User Management ({users.length})</h3>
+                    </div>
+                    {isLoading ? (
+                        <div className="p-12 text-center"><div className="w-8 h-8 border-3 border-blue-600/30 border-t-blue-600 rounded-full animate-spin mx-auto" /></div>
+                    ) : users.length === 0 ? (
+                        <div className="p-12 text-center text-slate-500 text-sm">No users found. Users will appear here after they register.</div>
+                    ) : (
+                        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                            {users.map((u) => (
+                                <div key={u.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                                            {(u.full_name || u.email || '?').charAt(0).toUpperCase()}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-sm text-slate-900 dark:text-white">{u.full_name || 'Unknown'}</p>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400">{u.email}</p>
+                                        </div>
+                                    </div>
+                                    <span className={`text-xs font-bold px-2.5 py-1 rounded-lg capitalize ${u.role === 'admin' ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : u.role === 'teacher' ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400' : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'}`}>
+                                        {u.role}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* ────── SETTINGS TAB ────── */}
+            {activeTab === 'settings' && (
+                <div className="max-w-2xl space-y-6">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-4">General Settings</h3>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Platform Name</label>
+                                <input defaultValue="Zpluse University" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Contact Email</label>
+                                <input defaultValue="admissions@zpluseuniversity.com" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-4">Danger Zone</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">These actions are irreversible. Proceed with caution.</p>
+                        <button className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 font-bold text-sm px-4 py-2.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
+                            Reset Database
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
