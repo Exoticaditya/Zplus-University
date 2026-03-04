@@ -1,14 +1,7 @@
-# Backend is a separate repository
-backend/
-
-# Next.js
-frontend/.next/
-frontend/out/
-frontend/build/
-
 # Dependencies
 node_modules/
-frontend/node_modules/
+.pnp
+.pnp.js
 
 # Environment files
 .env
@@ -16,24 +9,35 @@ frontend/node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+backend/.env
 
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Logs
-*.log
-npm-debug.log*
-yarn-error.log*
+# OS files
+.DS_Store
+Thumbs.db
 
-# TypeScript build info
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+venv/
+
+# Misc
 *.tsbuildinfo
-frontend/.tsbuildinfo
-
-# Vercel
-.vercel
+next-env.d.ts

@@ -14,6 +14,7 @@ Run:
 ─────────────────────────────────────────────────────────────────────────────
 """
 
+import json
 import os
 import sys
 from urllib.parse import urlparse, unquote
@@ -852,7 +853,7 @@ def get_connection():
 MIGRATION_SQL = """
 ALTER TABLE colleges ADD COLUMN IF NOT EXISTS fee_structure VARCHAR(200);
 ALTER TABLE colleges ADD COLUMN IF NOT EXISTS affiliation   VARCHAR(300);
-ALTER TABLE colleges ADD COLUMN IF NOT EXISTS courses       TEXT[];
+ALTER TABLE colleges ADD COLUMN IF NOT EXISTS courses       JSONB DEFAULT '[]';
 ALTER TABLE colleges ADD COLUMN IF NOT EXISTS nirf_rank     INT;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_colleges_name_unique ON colleges (name);
 """
@@ -898,7 +899,7 @@ def main():
     cur.execute(MIGRATION_SQL)
     print("    ✅  Columns added (or already exist)")
 
-    # Step 2: Build rows
+    # Step 2: Build rows (convert courses list to JSON string for JSONB column)
     rows = []
     for c in COLLEGES:
         (name, description, city, state, ctype, est_year, rating, featured,
@@ -906,7 +907,7 @@ def main():
         rows.append((
             name, description, city, state, "India", ctype, est_year,
             rating, featured, website, logo_url, cover_url,
-            fee, affiliation, courses, nirf_rank
+            fee, affiliation, json.dumps(courses) if courses else '[]', nirf_rank
         ))
 
     # Step 3: Insert using execute_values for efficiency

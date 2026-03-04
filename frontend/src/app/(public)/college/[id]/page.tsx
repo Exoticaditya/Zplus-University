@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import CollegeDetailClient from '@/components/college/CollegeDetailClient';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params;
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://zpluse-university-backend.onrender.com/api/v1'}/colleges/${params.id}`, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://zpluse-university-backend.onrender.com/api/v1'}/colleges/${id}`, { cache: 'no-store' });
         const json = await res.json();
         const college = json?.data || json;
 
@@ -22,12 +24,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     }
 }
 
-import CollegeDetailClient from '@/components/college/CollegeDetailClient';
-
-export default async function CollegeDetailPage({ params }: { params: { id: string } }) {
+export default async function CollegeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     let initialData = null;
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://zpluse-university-backend.onrender.com/api/v1'}/colleges/${params.id}`, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://zpluse-university-backend.onrender.com/api/v1'}/colleges/${id}`, { cache: 'no-store' });
         if (res.ok) {
             const json = await res.json();
             // backend may return { data: {...} } or the object directly
@@ -37,5 +38,5 @@ export default async function CollegeDetailPage({ params }: { params: { id: stri
         console.error('Server-side fetch failed for college detail:', err);
     }
 
-    return <CollegeDetailClient id={params.id} initialData={initialData} />;
+    return <CollegeDetailClient id={id} initialData={initialData} />;
 }
